@@ -24,11 +24,8 @@ export const App = () => {
       marginRight: '16px',
       borderRadius: '12px'
     }
-    const taskStyle = {
-      display: 'flex',
-      marginBottom: '24px'
-    }
     const taskIdStyle = {
+      paddingLeft: '12px',
       paddingRight: '24px'
     }
     const taskTitleStyle = {
@@ -47,6 +44,24 @@ export const App = () => {
     const taskDeleteButtonStyle = {
       padding: '16px',
       borderRadius: '12px'
+    }
+    const statusCompleteTaskStyle = {
+      display: 'flex',
+      marginBottom: '24px',
+      borderRadius: '12px',
+      backgroundColor: 'darkgray'
+    }
+    const statusInProgressTaskStyle = {
+      display: 'flex',
+      marginBottom: '24px',
+      borderRadius: '12px',
+      backgroundColor: 'lightgreen'
+    }
+    const statusNotStartedYetTaskStyle = {
+      display: 'flex',
+      marginBottom: '24px',
+      borderRadius: '12px',
+      backgroundColor: 'white'
     }
 
   // js処理
@@ -117,8 +132,16 @@ export const App = () => {
       <div>
         <ul>
           {todos.map((todo, index)=>{
+              let taskStyle = {};
+              if (todo.status === "未着手") {
+                taskStyle = statusNotStartedYetTaskStyle;
+              } else if (todo.status === "進行中") {
+                taskStyle = statusInProgressTaskStyle;
+              } else {
+                taskStyle = statusCompleteTaskStyle;
+              }
               return(
-                <li key={index}>
+                <li key={index} style={{listStyle: 'none'}}>
                   <div style={taskStyle}>
                     <p style={taskIdStyle}>{todo.id}</p>
                     <p style={taskTitleStyle}>{todo.title}</p>
