@@ -9,6 +9,10 @@ export const App = () => {
       padding: '16px',
       margin: '16px'
     }
+    const sortButtonAreaStyle = {
+      padding: '16px',
+      margin: '16px'
+    }
     const addButtonStyle = {
       padding: '16px',
       borderRadius: '12px'
@@ -44,6 +48,11 @@ export const App = () => {
     const taskDeleteButtonStyle = {
       padding: '16px',
       borderRadius: '12px'
+    }
+    const sortButtonStyle = {
+      padding: '16px',
+      borderRadius: '12px',
+      marginRight: '16px'
     }
     const statusCompleteTaskStyle = {
       display: 'flex',
@@ -114,6 +123,27 @@ export const App = () => {
     setTodos(newTodos);
   };
 
+  const sortByIdAscending = () => {
+    let newTodos = [...todos];
+    newTodos = newTodos.sort((a, b) => a.id - b.id);
+    setTodos(newTodos);
+  }
+
+  const sortByIdDescending = () => {
+    let newTodos = [...todos];
+    newTodos = newTodos.sort((a, b) => b.id - a.id);
+    setTodos(newTodos);
+  }
+
+  const sortByStatusAscending = () => {
+    let newTodos = [...todos];
+    const completeArray = newTodos.filter(item => item.status === '完了');
+    const progressArray = newTodos.filter(item => item.status === '進行中');
+    const notYetArray = newTodos.filter(item => item.status === '未着手');
+    newTodos = progressArray.concat(notYetArray, completeArray);
+    setTodos(newTodos);
+  }
+
   return (
     <div className="App" style={appStyle}>
       <div style={addStyle}>
@@ -128,6 +158,11 @@ export const App = () => {
           <input style={addInputDetailStyle} type="text" value={taskDetailText} onChange={onChangeTaskDetailText} maxLength='50' />
           <button type="button" style={addButtonStyle} onClick={onClickAdd}>追加</button>
         </form>
+      </div>
+      <div className="sortButtons" style={sortButtonAreaStyle}>
+        <button style={sortButtonStyle} onClick={sortByIdDescending}>id降順</button>
+        <button style={sortButtonStyle} onClick={sortByIdAscending}>id昇順</button>
+        <button style={sortButtonStyle} onClick={sortByStatusAscending}>ステータス順 進行中->未着手->完了</button>
       </div>
       <div>
         <ul>
