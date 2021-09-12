@@ -79,6 +79,7 @@ export const App = () => {
   const [taskDetailText, setTaskDetailText] = useState('');
   const [taskStatus, setTaskStatus] = useState('');
   const [todos, setTodos] = useState([]);
+  const [todosStorage, setTodosStrage] = useState([]);
 
   const onChangeTaskTitleText = (event) => setTaskTitleText(event.target.value);
   const onChangeTaskDetailText = (event) => setTaskDetailText(event.target.value);
@@ -144,6 +145,33 @@ export const App = () => {
     setTodos(newTodos);
   }
 
+  const filterDisable = () => {
+    const newTodos = [...todosStorage];
+    setTodosStrage(newTodos);
+    setTodos(todosStorage);
+  }
+
+  const filterProgress = () => {
+    const newTodos = [...todos];
+    setTodosStrage(newTodos);
+    const progressArray = newTodos.filter(item => item.status === '進行中');
+    setTodos(progressArray);
+  }
+
+  const filterNotYet = () => {
+    const newTodos = [...todos];
+    setTodosStrage(newTodos);
+    const notYetArray = newTodos.filter(item => item.status === '未着手');
+    setTodos(notYetArray);
+  }
+
+  const filterComplete = () => {
+    const newTodos = [...todos];
+    setTodosStrage(newTodos);
+    const completeArray = newTodos.filter(item => item.status === '完了');
+    setTodos(completeArray);
+  }
+
   return (
     <div className="App" style={appStyle}>
       <div style={addStyle}>
@@ -163,6 +191,12 @@ export const App = () => {
         <button style={sortButtonStyle} onClick={sortByIdDescending}>id降順</button>
         <button style={sortButtonStyle} onClick={sortByIdAscending}>id昇順</button>
         <button style={sortButtonStyle} onClick={sortByStatusAscending}>ステータス順 進行中->未着手->完了</button>
+      </div>
+      <div>
+        <button onClick={filterDisable}>フィルター無し</button>
+        <button onClick={filterProgress}>進行中</button>
+        <button onClick={filterNotYet}>未着手</button>
+        <button onClick={filterComplete}>完了</button>
       </div>
       <div>
         <ul>
