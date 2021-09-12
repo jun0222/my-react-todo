@@ -77,11 +77,13 @@ export const App = () => {
     setTaskStatus('');
   };
 
-  const onClickDelete = (todoId) => {
+  const onClickDelete = (deleteTodoId) => {
     const newTodos = [...todos];
-    newTodos.some(function(v, i){
-      if (v.id === todoId) newTodos.splice(i, 1);
-    });
+    for (let i = 0; i < newTodos.length; i++) {
+      if(newTodos[i].id === deleteTodoId){
+        newTodos.splice(i, 1);
+      }
+    }
     setTodos(newTodos);
   };
 
