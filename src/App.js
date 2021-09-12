@@ -26,6 +26,7 @@ export const App = () => {
     }
     const taskStyle = {
       display: 'flex',
+      marginBottom: '24px'
     }
     const taskIdStyle = {
       paddingRight: '24px'
@@ -47,6 +48,7 @@ export const App = () => {
     }
 
   // js処理
+  const [ids, setIds] = useState([]);
   const [taskTitleText, setTaskTitleText] = useState('');
   const [taskDetailText, setTaskDetailText] = useState('');
   const [taskStatus, setTaskStatus] = useState('');
@@ -60,11 +62,15 @@ export const App = () => {
     if (taskTitleText === "" || taskStatus === "" || taskDetailText === "" ){
       return
     };
+    const id = ids.length + 1;
     const taskObj = {
+      id: id,
       title: taskTitleText,
       status: taskStatus,
       detail: taskDetailText
     }
+    const newId = [...ids, id];
+    setIds(newId);
     const newTask = [...todos, taskObj];
     setTodos(newTask);
     setTaskTitleText('');
@@ -72,50 +78,40 @@ export const App = () => {
     setTaskStatus('');
   };
 
+  const onClickDelete = (todoId) => {
+    const newTodos = [...todos];
+    newTodos.some(function(v, i){
+      if (v.id === todoId) newTodos.splice(i, 1);
+    });
+    setTodos(newTodos);
+  };
+
   return (
     <div className="App" style={appStyle}>
       <div style={addStyle}>
         <form action="">
-          <input style={addInputStyle} type="text" value={taskTitleText} onChange={onChangeTaskTitleText} />
+          <input style={addInputStyle} type="text" value={taskTitleText} onChange={onChangeTaskTitleText} maxLength='10' />
           <select style={addInputStyle} name="" id="" value={taskStatus} onChange={onChangeTaskStatus}>
             <option value="">-</option>
             <option value="未着手">未着手</option>
             <option value="進行中">進行中</option>
             <option value="完了">完了</option>
           </select>
-          <input style={addInputDetailStyle} type="text" value={taskDetailText} onChange={onChangeTaskDetailText} />
+          <input style={addInputDetailStyle} type="text" value={taskDetailText} onChange={onChangeTaskDetailText} maxLength='50' />
           <button type="button" style={addButtonStyle} onClick={onClickAdd}>追加</button>
         </form>
       </div>
       <div>
         <ul>
-          <li>
-            <div style={taskStyle}>
-              <p style={taskIdStyle}>1</p>
-              <p style={taskTitleStyle}>掃除１０文字まで制限</p>
-              <p style={taskStatusStyle}>未着手</p>
-              <p style={taskDetailStyle}>風呂に水垢があるので綺麗にする風呂に水垢があるので綺麗にするデザイン崩れないよう５０文字５０文字までま</p>
-              <button type="button" style={taskDeleteButtonStyle}>削除</button>
-            </div>
-          </li>
-          <li>
-            <div style={taskStyle}>
-              <p style={taskIdStyle}>2</p>
-              <p style={taskTitleStyle}>あ</p>
-              <p style={taskStatusStyle}>完了</p>
-              <p style={taskDetailStyle}>あ</p>
-              <button type="button" style={taskDeleteButtonStyle}>削除</button>
-            </div>
-          </li>
           {todos.map((todo, index)=>{
               return(
-                <li key={index+1}>
+                <li key={index}>
                   <div style={taskStyle}>
-                    <p style={taskIdStyle}>{index+1}</p>
+                    <p style={taskIdStyle}>{todo.id}</p>
                     <p style={taskTitleStyle}>{todo.title}</p>
                     <p style={taskStatusStyle}>{todo.status}</p>
                     <p style={taskDetailStyle}>{todo.detail}</p>
-                    <button type="button" style={taskDeleteButtonStyle}>削除</button>
+                    <button type="button" style={taskDeleteButtonStyle} onClick={() => {onClickDelete(todo.id)}} >削除</button>
                   </div>
                 </li>
               );
