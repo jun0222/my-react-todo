@@ -36,7 +36,9 @@ export const App = () => {
       paddingRight: '24px'
     }
     const taskStatusStyle = {
-      paddingRight: '24px'
+      padding: '16px',
+      marginRight: '16px',
+      borderRadius: '12px'
     }
     const taskDetailStyle = {
       minWidth: '300px',
@@ -87,6 +89,16 @@ export const App = () => {
     setTodos(newTodos);
   };
 
+  const onChangeExistingTaskStatus = (statusChangeTodoId, setValue) => {
+    const newTodos = [...todos];
+    for (let i = 0; i < newTodos.length; i++) {
+      if(newTodos[i].id === statusChangeTodoId){
+        newTodos[i].status = setValue;
+      }
+    }
+    setTodos(newTodos);
+  };
+
   return (
     <div className="App" style={appStyle}>
       <div style={addStyle}>
@@ -110,7 +122,15 @@ export const App = () => {
                   <div style={taskStyle}>
                     <p style={taskIdStyle}>{todo.id}</p>
                     <p style={taskTitleStyle}>{todo.title}</p>
-                    <p style={taskStatusStyle}>{todo.status}</p>
+                    <select 
+                      id={`task-${todo.id}-status`} 
+                      style={taskStatusStyle} 
+                      value={todo.status} onChange={() => {onChangeExistingTaskStatus(todo.id, document.getElementById(`task-${todo.id}-status`).value)}}
+                    >
+                      <option value="未着手">未着手</option>
+                      <option value="進行中">進行中</option>
+                      <option value="完了">完了</option>
+                    </select>
                     <p style={taskDetailStyle}>{todo.detail}</p>
                     <button type="button" style={taskDeleteButtonStyle} onClick={() => {onClickDelete(todo.id)}} >削除</button>
                   </div>
