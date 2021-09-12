@@ -48,7 +48,7 @@ export const App = () => {
     }
 
   // js処理
-  const [ids, setIds] = useState([]);
+  const [id, setId] = useState(1);
   const [taskTitleText, setTaskTitleText] = useState('');
   const [taskDetailText, setTaskDetailText] = useState('');
   const [taskStatus, setTaskStatus] = useState('');
@@ -62,15 +62,14 @@ export const App = () => {
     if (taskTitleText === "" || taskStatus === "" || taskDetailText === "" ){
       return
     };
-    const id = ids.length + 1;
+    const newId = id + 1;
     const taskObj = {
       id: id,
       title: taskTitleText,
       status: taskStatus,
       detail: taskDetailText
     }
-    const newId = [...ids, id];
-    setIds(newId);
+    setId(newId);
     const newTask = [...todos, taskObj];
     setTodos(newTask);
     setTaskTitleText('');
