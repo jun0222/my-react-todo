@@ -1,87 +1,8 @@
 import React, {useState} from 'react';
 
-export const App = () => {
-    // css
-    const appStyle = {
-      width: '1240px'
-    }
-    const addStyle = {
-      padding: '16px',
-      margin: '16px'
-    }
-    const sortButtonAreaStyle = {
-      padding: '16px',
-      margin: '16px'
-    }
-    const filterButtonAreaStyle = {
-      padding: '16px',
-      margin: '16px'
-    }
-    const addButtonStyle = {
-      padding: '16px',
-      borderRadius: '12px'
-    }
-    const addInputStyle = {
-      padding: '16px',
-      marginRight: '16px',
-      borderRadius: '12px'
-    }
-    const addInputDetailStyle = {
-      width: '600px',
-      padding: '16px',
-      marginRight: '16px',
-      borderRadius: '12px'
-    }
-    const taskIdStyle = {
-      paddingLeft: '12px',
-      paddingRight: '24px'
-    }
-    const taskTitleStyle = {
-      minWidth: '160px',
-      paddingRight: '24px'
-    }
-    const taskStatusStyle = {
-      padding: '16px',
-      marginRight: '16px',
-      borderRadius: '12px'
-    }
-    const taskDetailStyle = {
-      minWidth: '300px',
-      maxWidth: '600px'
-    }
-    const taskDeleteButtonStyle = {
-      padding: '16px',
-      borderRadius: '12px'
-    }
-    const sortButtonStyle = {
-      padding: '16px',
-      borderRadius: '12px',
-      marginRight: '16px'
-    }
-    const statusCompleteTaskStyle = {
-      display: 'flex',
-      marginBottom: '24px',
-      borderRadius: '12px',
-      backgroundColor: 'darkgray'
-    }
-    const statusInProgressTaskStyle = {
-      display: 'flex',
-      marginBottom: '24px',
-      borderRadius: '12px',
-      backgroundColor: 'lightgreen'
-    }
-    const statusNotStartedYetTaskStyle = {
-      display: 'flex',
-      marginBottom: '24px',
-      borderRadius: '12px',
-      backgroundColor: 'white'
-    }
-    const filterButtonStyle = {
-      padding: '16px',
-      borderRadius: '12px',
-      marginRight: '16px'
-    }
+import './App.css'
 
+export const App = () => {
   // js処理
   const [id, setId] = useState(1);
   const [taskTitleText, setTaskTitleText] = useState('');
@@ -179,58 +100,58 @@ export const App = () => {
   }
 
   return (
-    <div className="App" style={appStyle}>
-      <div style={addStyle}>
+    <div className="App app-style">
+      <div className="add-style">
         <form action="">
-          <input style={addInputStyle} type="text" value={taskTitleText} onChange={onChangeTaskTitleText} maxLength='10' />
-          <select style={addInputStyle} name="" id="" value={taskStatus} onChange={onChangeTaskStatus}>
+          <input className="add-input-style" type="text" value={taskTitleText} onChange={onChangeTaskTitleText} maxLength='10' />
+          <select className="add-input-style" name="" id="" value={taskStatus} onChange={onChangeTaskStatus}>
             <option value="">-</option>
             <option value="未着手">未着手</option>
             <option value="進行中">進行中</option>
             <option value="完了">完了</option>
           </select>
-          <input style={addInputDetailStyle} type="text" value={taskDetailText} onChange={onChangeTaskDetailText} maxLength='50' />
-          <button type="button" style={addButtonStyle} onClick={onClickAdd}>追加</button>
+          <input className="add-input-detail-style" type="text" value={taskDetailText} onChange={onChangeTaskDetailText} maxLength='50' />
+          <button type="button" className="add-button-style" onClick={onClickAdd}>追加</button>
         </form>
       </div>
-      <div className="sortButtons" style={sortButtonAreaStyle}>
-        <button style={sortButtonStyle} onClick={sortByIdDescending}>id降順</button>
-        <button style={sortButtonStyle} onClick={sortByIdAscending}>id昇順</button>
-        <button style={sortButtonStyle} onClick={sortByStatusAscending}>ステータス順 進行中->未着手->完了</button>
+      <div className="sortButtons sort-button-area-style">
+        <button className="sort-button-style" onClick={sortByIdDescending}>id降順</button>
+        <button className="sort-button-style" onClick={sortByIdAscending}>id昇順</button>
+        <button className="sort-button-style" onClick={sortByStatusAscending}>ステータス順 進行中->未着手->完了</button>
       </div>
-      <div style={filterButtonAreaStyle} >
-        <button style={filterButtonStyle} onClick={filterDisable}>フィルター無し</button>
-        <button style={filterButtonStyle} onClick={filterProgress}>進行中</button>
-        <button style={filterButtonStyle} onClick={filterNotYet}>未着手</button>
-        <button style={filterButtonStyle} onClick={filterComplete}>完了</button>
+      <div className="filter-buton-area-style">
+        <button className="filter-button-style" onClick={filterDisable}>フィルター無し</button>
+        <button className="filter-button-style" onClick={filterProgress}>進行中</button>
+        <button className="filter-button-style" onClick={filterNotYet}>未着手</button>
+        <button className="filter-button-style" onClick={filterComplete}>完了</button>
       </div>
       <div>
         <ul>
           {todos.map((todo, index)=>{
               let taskStyle = {};
               if (todo.status === "未着手") {
-                taskStyle = statusNotStartedYetTaskStyle;
+                taskStyle = 'status-not-started-yet-task-style';
               } else if (todo.status === "進行中") {
-                taskStyle = statusInProgressTaskStyle;
+                taskStyle = 'status-in-progress-task-style';
               } else {
-                taskStyle = statusCompleteTaskStyle;
+                taskStyle = 'status-complete-task-style';
               }
               return(
                 <li key={index} style={{listStyle: 'none'}}>
-                  <div style={taskStyle}>
-                    <p style={taskIdStyle}>{todo.id}</p>
-                    <p style={taskTitleStyle}>{todo.title}</p>
+                  <div className={taskStyle}>
+                    <p className="task-id-style">{todo.id}</p>
+                    <p className="task-title-style">{todo.title}</p>
                     <select 
                       id={`task-${todo.id}-status`} 
-                      style={taskStatusStyle} 
+                      className="task-status-style"
                       value={todo.status} onChange={() => {onChangeExistingTaskStatus(todo.id, document.getElementById(`task-${todo.id}-status`).value)}}
                     >
                       <option value="未着手">未着手</option>
                       <option value="進行中">進行中</option>
                       <option value="完了">完了</option>
                     </select>
-                    <p style={taskDetailStyle}>{todo.detail}</p>
-                    <button type="button" style={taskDeleteButtonStyle} onClick={() => {onClickDelete(todo.id)}} >削除</button>
+                    <p className="task-detail-style">{todo.detail}</p>
+                    <button type="button" className="task-delete-button-style" onClick={() => {onClickDelete(todo.id)}} >削除</button>
                   </div>
                 </li>
               );

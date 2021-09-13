@@ -1,38 +1,79 @@
-.App {
-  text-align: center;
+.app-style{
+  width: 1240px;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.add-style{
+  padding: 16px;
+  margin: 16px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.sort-button-area-style{
+  padding: 16px;
+  margin: 16px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.filter-buton-area-style{
+  padding: 16px;
+  margin: 16px;
+}
+.add-button-style{
+  padding: 16px;
+  border-radius: 12px;
+}
+.add-input-style{
+  padding: 16px;
+  margin-right: 16px;
+  border-radius: 12px;
+}
+.add-input-detail-style{
+  width:  600px;
+  padding: 16px;
+  margin-right: 16px;
+  border-radius: 12px;
+}
+.task-id-style {
+  padding-left: 12px;
+  padding-right: 24px;
+}
+.task-title-style {
+  min-width: 160px;
+  padding-right: 24px;
+}
+.task-status-style {
+  padding: 16px;
+  margin-right: 16px;
+  border-radius: 12px;
+}
+.task-detail-style {
+  min-width: 300px;
+  max-width: 600px;
+}
+.task-delete-button-style {
+  padding: 16px;
+  border-radius: 12px;
+}
+.sort-button-style {
+  padding: 16px;
+  border-radius: 12px;
+  margin-right: 16px;
+}
+.status-complete-task-style {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 24px;
+  border-radius: 12px;
+  background-color: darkgray;
 }
-
-.App-link {
-  color: #61dafb;
+.status-in-progress-task-style {
+  display: flex;
+  margin-bottom: 24px;
+  border-radius: 12px;
+  background-color: lightgreen;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.status-not-started-yet-task-style {
+  display: flex;
+  margin-bottom: 24px;
+  border-radius: 12px;
+  background-color: white;
+}
+.filter-button-style {
+  padding: 16px;
+  border-radius: 12px;
+  margin-right: 16px;
 }
