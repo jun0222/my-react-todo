@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 
 import './App.css'
+import { AddForm } from './components/AddForm';
+import { SortButton } from './components/SortButton';
+import { FilterButton } from './components/FilterButton';
+import { TaskArea } from './components/TaskArea';
 
 export const App = () => {
   // js処理
@@ -101,63 +105,31 @@ export const App = () => {
 
   return (
     <div className="App app-style">
-      <div className="add-style">
-        <form action="">
-          <input className="add-input-style" type="text" value={taskTitleText} onChange={onChangeTaskTitleText} maxLength='10' />
-          <select className="add-input-style" name="" id="" value={taskStatus} onChange={onChangeTaskStatus}>
-            <option value="">-</option>
-            <option value="未着手">未着手</option>
-            <option value="進行中">進行中</option>
-            <option value="完了">完了</option>
-          </select>
-          <input className="add-input-detail-style" type="text" value={taskDetailText} onChange={onChangeTaskDetailText} maxLength='50' />
-          <button type="button" className="add-button-style" onClick={onClickAdd}>追加</button>
-        </form>
-      </div>
-      <div className="sortButtons sort-button-area-style">
-        <button className="sort-button-style" onClick={sortByIdDescending}>id降順</button>
-        <button className="sort-button-style" onClick={sortByIdAscending}>id昇順</button>
-        <button className="sort-button-style" onClick={sortByStatusAscending}>ステータス順 進行中->未着手->完了</button>
-      </div>
-      <div className="filter-buton-area-style">
-        <button className="filter-button-style" onClick={filterDisable}>フィルター無し</button>
-        <button className="filter-button-style" onClick={filterProgress}>進行中</button>
-        <button className="filter-button-style" onClick={filterNotYet}>未着手</button>
-        <button className="filter-button-style" onClick={filterComplete}>完了</button>
-      </div>
-      <div>
-        <ul>
-          {todos.map((todo, index)=>{
-              let taskStyle = {};
-              if (todo.status === "未着手") {
-                taskStyle = 'status-not-started-yet-task-style';
-              } else if (todo.status === "進行中") {
-                taskStyle = 'status-in-progress-task-style';
-              } else {
-                taskStyle = 'status-complete-task-style';
-              }
-              return(
-                <li key={index} style={{listStyle: 'none'}}>
-                  <div className={taskStyle}>
-                    <p className="task-id-style">{todo.id}</p>
-                    <p className="task-title-style">{todo.title}</p>
-                    <select 
-                      id={`task-${todo.id}-status`} 
-                      className="task-status-style"
-                      value={todo.status} onChange={() => {onChangeExistingTaskStatus(todo.id, document.getElementById(`task-${todo.id}-status`).value)}}
-                    >
-                      <option value="未着手">未着手</option>
-                      <option value="進行中">進行中</option>
-                      <option value="完了">完了</option>
-                    </select>
-                    <p className="task-detail-style">{todo.detail}</p>
-                    <button type="button" className="task-delete-button-style" onClick={() => {onClickDelete(todo.id)}} >削除</button>
-                  </div>
-                </li>
-              );
-          })}
-        </ul>
-      </div>
+      <AddForm
+        taskTitleText={taskTitleText}
+        onChangeTaskTitleText={onChangeTaskTitleText}
+        taskStatus={taskStatus}
+        onChangeTaskStatus={onChangeTaskStatus}
+        taskDetailText={taskDetailText}
+        onChangeTaskDetailText={onChangeTaskDetailText}
+        onClickAdd={onClickAdd}
+      />
+      <SortButton
+        sortByIdDescending={sortByIdDescending}
+        sortByIdAscending={sortByIdAscending}
+        sortByStatusAscending={sortByStatusAscending}
+      />
+      <FilterButton
+        filterDisable={filterDisable}
+        filterProgress={filterProgress}
+        filterNotYet={filterNotYet}
+        filterComplete={filterComplete}
+      />
+      <TaskArea
+        todos={todos}
+        onChangeExistingTaskStatus={onChangeExistingTaskStatus}
+        onClickDelete={onClickDelete}
+      />
     </div>
   );
 }
