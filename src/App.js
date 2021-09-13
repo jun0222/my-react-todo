@@ -99,6 +99,7 @@ export const App = () => {
     setId(newId);
     const newTask = [...todos, taskObj];
     setTodos(newTask);
+    setTodosStrage(newTask);
     setTaskTitleText('');
     setTaskDetailText('');
     setTaskStatus('');
@@ -147,27 +148,23 @@ export const App = () => {
 
   const filterDisable = () => {
     const newTodos = [...todosStorage];
-    setTodosStrage(newTodos);
-    setTodos(todosStorage);
+    setTodos(newTodos);
   }
 
   const filterProgress = () => {
-    const newTodos = [...todos];
-    setTodosStrage(newTodos);
+    const newTodos = [...todosStorage];
     const progressArray = newTodos.filter(item => item.status === '進行中');
     setTodos(progressArray);
   }
 
   const filterNotYet = () => {
-    const newTodos = [...todos];
-    setTodosStrage(newTodos);
+    const newTodos = [...todosStorage];
     const notYetArray = newTodos.filter(item => item.status === '未着手');
     setTodos(notYetArray);
   }
 
   const filterComplete = () => {
-    const newTodos = [...todos];
-    setTodosStrage(newTodos);
+    const newTodos = [...todosStorage];
     const completeArray = newTodos.filter(item => item.status === '完了');
     setTodos(completeArray);
   }
