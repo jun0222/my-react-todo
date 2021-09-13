@@ -13,6 +13,10 @@ export const App = () => {
       padding: '16px',
       margin: '16px'
     }
+    const filterButtonAreaStyle = {
+      padding: '16px',
+      margin: '16px'
+    }
     const addButtonStyle = {
       padding: '16px',
       borderRadius: '12px'
@@ -72,6 +76,11 @@ export const App = () => {
       borderRadius: '12px',
       backgroundColor: 'white'
     }
+    const filterButtonStyle = {
+      padding: '16px',
+      borderRadius: '12px',
+      marginRight: '16px'
+    }
 
   // js処理
   const [id, setId] = useState(1);
@@ -97,7 +106,7 @@ export const App = () => {
       detail: taskDetailText
     }
     setId(newId);
-    const newTask = [...todos, taskObj];
+    const newTask = [...todosStorage, taskObj];
     setTodos(newTask);
     setTodosStrage(newTask);
     setTaskTitleText('');
@@ -189,11 +198,11 @@ export const App = () => {
         <button style={sortButtonStyle} onClick={sortByIdAscending}>id昇順</button>
         <button style={sortButtonStyle} onClick={sortByStatusAscending}>ステータス順 進行中->未着手->完了</button>
       </div>
-      <div>
-        <button onClick={filterDisable}>フィルター無し</button>
-        <button onClick={filterProgress}>進行中</button>
-        <button onClick={filterNotYet}>未着手</button>
-        <button onClick={filterComplete}>完了</button>
+      <div style={filterButtonAreaStyle} >
+        <button style={filterButtonStyle} onClick={filterDisable}>フィルター無し</button>
+        <button style={filterButtonStyle} onClick={filterProgress}>進行中</button>
+        <button style={filterButtonStyle} onClick={filterNotYet}>未着手</button>
+        <button style={filterButtonStyle} onClick={filterComplete}>完了</button>
       </div>
       <div>
         <ul>
