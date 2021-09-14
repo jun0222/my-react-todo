@@ -5,6 +5,8 @@ import { AddForm } from './components/AddForm';
 import { SortButton } from './components/SortButton';
 import { FilterButton } from './components/FilterButton';
 import { TaskArea } from './components/TaskArea';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const App = () => {
   // js処理
@@ -14,21 +16,28 @@ export const App = () => {
   const [taskStatus, setTaskStatus] = useState('');
   const [todos, setTodos] = useState([]);
   const [todosStorage, setTodosStrage] = useState([]);
+  const initialDate = new Date()
+  const [date, setDate] = useState(initialDate);
 
   const onChangeTaskTitleText = (event) => setTaskTitleText(event.target.value);
   const onChangeTaskDetailText = (event) => setTaskDetailText(event.target.value);
   const onChangeTaskStatus = (event) => setTaskStatus(event.target.value);
+  const handleChange = (event) => {
+    setDate(event);
+  }
   
   const onClickAdd = () => {
     if (taskTitleText === "" || taskStatus === "" || taskDetailText === "" ){
       return
     };
     const newId = id + 1;
+    const yyyymmdd = date.getFullYear() + "/" +  (date.getMonth() + 1) + "/"+ date.getDate();
     const taskObj = {
       id: id,
       title: taskTitleText,
       status: taskStatus,
-      detail: taskDetailText
+      detail: taskDetailText,
+      date: yyyymmdd
     }
     setId(newId);
     const newTask = [...todosStorage, taskObj];
@@ -114,6 +123,12 @@ export const App = () => {
         onChangeTaskDetailText={onChangeTaskDetailText}
         onClickAdd={onClickAdd}
       />
+      <DatePicker
+            selected={date}
+            onChange={handleChange}
+            className="add-input-style"
+            dateFormat="yyyy/MM/dd"
+        />
       <SortButton
         sortByIdDescending={sortByIdDescending}
         sortByIdAscending={sortByIdAscending}
