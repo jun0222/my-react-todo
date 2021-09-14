@@ -5,7 +5,6 @@ import { AddForm } from './components/AddForm';
 import { SortButton } from './components/SortButton';
 import { FilterButton } from './components/FilterButton';
 import { TaskArea } from './components/TaskArea';
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export const App = () => {
@@ -27,7 +26,7 @@ export const App = () => {
   }
   
   const onClickAdd = () => {
-    if (taskTitleText === "" || taskStatus === "" || taskDetailText === "" ){
+    if (taskTitleText === "" || taskStatus === "" || taskDetailText === "" || date === null ){
       return
     };
     const newId = id + 1;

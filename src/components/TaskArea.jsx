@@ -29,6 +29,7 @@ export const TaskArea = (props) => {
                                 <option value="完了">完了</option>
                             </select>
                             <p className="task-detail-style">{todo.detail}</p>
+                            <p className="task-date-style">期限：{todo.date}</p>
                             <button type="button" className="task-delete-button-style" onClick={() => {onClickDelete(todo.id)}} >削除</button>
                         </div>
                     </li>

@@ -45,6 +45,10 @@
   min-width: 300px;
   max-width: 600px;
 }
+.task-date-style {
+  min-width: 160px;
+  padding-right: 24px;
+}
 .task-delete-button-style {
   padding: 16px;
   border-radius: 12px;
