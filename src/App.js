@@ -122,13 +122,9 @@ export const App = () => {
         taskDetailText={taskDetailText}
         onChangeTaskDetailText={onChangeTaskDetailText}
         onClickAdd={onClickAdd}
+        date={date}
+        handleChange={handleChange}
       />
-      <DatePicker
-            selected={date}
-            onChange={handleChange}
-            className="add-input-style"
-            dateFormat="yyyy/MM/dd"
-        />
       <SortButton
         sortByIdDescending={sortByIdDescending}
         sortByIdAscending={sortByIdAscending}

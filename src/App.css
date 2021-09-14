@@ -1,5 +1,5 @@
 .app-style{
-  width: 1240px;
+  width: 1560px;
 }
 .add-style{
   padding: 16px;
@@ -76,4 +76,17 @@
   padding: 16px;
   border-radius: 12px;
   margin-right: 16px;
+}
+.react-datepicker-wrapper{
+  width: unset !important;
+}
+.datepiker-wrap{
+  width: 160px;
+  display: inline-block;
+  font-size: 12px;
+}
+.datepiker-input-style{
+  padding: 6px;
+  margin-right: 16px;
+  border-radius: 12px;
 }
