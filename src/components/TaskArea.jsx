@@ -30,6 +30,7 @@ export const TaskArea = (props) => {
                             </select>
                             <p className="task-detail-style">{todo.detail}</p>
                             <p className="task-date-style">期限：{todo.date}</p>
+                            <p className="task-created-at-style">作成日：{todo.createdAt}</p>
                             <button type="button" className="task-delete-button-style" onClick={() => {onClickDelete(todo.id)}} >削除</button>
                         </div>
                     </li>

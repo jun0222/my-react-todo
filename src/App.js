@@ -31,12 +31,15 @@ export const App = () => {
     };
     const newId = id + 1;
     const yyyymmdd = date.getFullYear() + "/" +  (date.getMonth() + 1) + "/"+ date.getDate();
+    const createdAt = new Date()
+    const createdAtYyyymmdd = createdAt.getFullYear() + "/" +  (createdAt.getMonth() + 1) + "/"+ createdAt.getDate();
     const taskObj = {
       id: id,
       title: taskTitleText,
       status: taskStatus,
       detail: taskDetailText,
-      date: yyyymmdd
+      date: yyyymmdd,
+      createdAt: createdAtYyyymmdd
     }
     setId(newId);
     const newTask = [...todosStorage, taskObj];
