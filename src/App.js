@@ -17,6 +17,8 @@ export const App = () => {
   const [todosStorage, setTodosStrage] = useState([]);
   const initialDate = new Date()
   const [date, setDate] = useState(initialDate);
+  const ON_EDIT_FLG_TRUE = 1;
+  const ON_EDIT_FLG_FALSE = 0;
 
   const onChangeTaskTitleText = (event) => setTaskTitleText(event.target.value);
   const onChangeTaskDetailText = (event) => setTaskDetailText(event.target.value);
@@ -24,7 +26,6 @@ export const App = () => {
   const handleChange = (event) => {
     setDate(event);
   }
-  
   const onClickAdd = () => {
     if (taskTitleText === "" || taskStatus === "" || taskDetailText === "" || date === null ){
       return
@@ -39,7 +40,8 @@ export const App = () => {
       status: taskStatus,
       detail: taskDetailText,
       date: yyyymmdd,
-      createdAt: createdAtYyyymmdd
+      createdAt: createdAtYyyymmdd,
+      editFlg: ON_EDIT_FLG_FALSE
     }
     setId(newId);
     const newTask = [...todosStorage, taskObj];
@@ -142,6 +144,8 @@ export const App = () => {
         todos={todos}
         onChangeExistingTaskStatus={onChangeExistingTaskStatus}
         onClickDelete={onClickDelete}
+        ON_EDIT_FLG_TRUE={ON_EDIT_FLG_TRUE}
+        ON_EDIT_FLG_FALSE={ON_EDIT_FLG_FALSE}
       />
     </div>
   );
