@@ -6,8 +6,8 @@ export const TaskArea = (props) => {
         onChangeExistingTaskStatus, 
         onClickDelete, 
         ON_EDIT_FLG_TRUE, 
-        ON_EDIT_FLG_FALSE,
-        onClickEdit
+        onClickEdit,
+        onClickBackEdit
     } = props;
     return (
         <div>
@@ -24,7 +24,6 @@ export const TaskArea = (props) => {
                 if(todo.editFlg === ON_EDIT_FLG_TRUE){
                     return (
                         <li key={index} style={{listStyle: 'none'}}>
-                            {console.log('Error!')}
                             <div className={taskStyle}>
                                 <p className="task-id-style">{todo.id}</p>
                                 <p className="task-title-style">{todo.title}</p>
@@ -41,7 +40,7 @@ export const TaskArea = (props) => {
                                 <p className="task-date-style">期限：{todo.date}</p>
                                 <p className="task-created-at-style">作成日：{todo.createdAt}</p>
                                 <button type="button" className="task-delete-button-style" onClick={() => {onClickDelete(todo.id)}} >確定</button>
-                                <button type="button" className="task-delete-button-style" onClick={() => {todo.editFlg = ON_EDIT_FLG_FALSE}} >戻す</button>
+                                <button type="button" className="task-delete-button-style" onClick={() => {onClickBackEdit(todo.id)}} >戻す</button>
                             </div>
                         </li>
                     )

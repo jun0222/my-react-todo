@@ -72,6 +72,16 @@ export const App = () => {
     setTodos(newTodos);
   };
 
+  const onClickBackEdit = (editBackTodoId) => {
+    const newTodos = [...todos];
+    for (let i = 0; i < newTodos.length; i++) {
+        if(newTodos[i].id === editBackTodoId){
+            newTodos[i].editFlg = ON_EDIT_FLG_FALSE;
+        }
+    }
+    setTodos(newTodos);
+  };
+
   const onChangeExistingTaskStatus = (statusChangeTodoId, setValue) => {
     const newTodos = [...todos];
     for (let i = 0; i < newTodos.length; i++) {
@@ -157,6 +167,7 @@ export const App = () => {
         ON_EDIT_FLG_TRUE={ON_EDIT_FLG_TRUE}
         ON_EDIT_FLG_FALSE={ON_EDIT_FLG_FALSE}
         onClickEdit={onClickEdit}
+        onClickBackEdit={onClickBackEdit}
       />
     </div>
   );
