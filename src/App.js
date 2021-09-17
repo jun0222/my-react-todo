@@ -62,6 +62,16 @@ export const App = () => {
     setTodos(newTodos);
   };
 
+  const onClickEdit = (editTodoId) => {
+    const newTodos = [...todos];
+    for (let i = 0; i < newTodos.length; i++) {
+        if(newTodos[i].id === editTodoId){
+            newTodos[i].editFlg = ON_EDIT_FLG_TRUE;
+        }
+    }
+    setTodos(newTodos);
+  };
+
   const onChangeExistingTaskStatus = (statusChangeTodoId, setValue) => {
     const newTodos = [...todos];
     for (let i = 0; i < newTodos.length; i++) {
@@ -146,6 +156,7 @@ export const App = () => {
         onClickDelete={onClickDelete}
         ON_EDIT_FLG_TRUE={ON_EDIT_FLG_TRUE}
         ON_EDIT_FLG_FALSE={ON_EDIT_FLG_FALSE}
+        onClickEdit={onClickEdit}
       />
     </div>
   );

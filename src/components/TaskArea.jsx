@@ -6,7 +6,8 @@ export const TaskArea = (props) => {
         onChangeExistingTaskStatus, 
         onClickDelete, 
         ON_EDIT_FLG_TRUE, 
-        ON_EDIT_FLG_FALSE
+        ON_EDIT_FLG_FALSE,
+        onClickEdit
     } = props;
     return (
         <div>
@@ -63,7 +64,7 @@ export const TaskArea = (props) => {
                                 <p className="task-date-style">期限：{todo.date}</p>
                                 <p className="task-created-at-style">作成日：{todo.createdAt}</p>
                                 <button type="button" className="task-delete-button-style" onClick={() => {onClickDelete(todo.id)}} >削除</button>
-                                <button type="button" className="task-delete-button-style" onClick={() => {todo.editFlg = ON_EDIT_FLG_TRUE}} >編集</button>
+                                <button type="button" className="task-delete-button-style" onClick={() => {onClickEdit(todo.id)}} >編集</button>
                             </div>
                         </li>
                     )
