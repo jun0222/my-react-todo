@@ -19,6 +19,7 @@ export const App = () => {
   const [date, setDate] = useState(initialDate);
   const ON_EDIT_FLG_TRUE = 1;
   const ON_EDIT_FLG_FALSE = 0;
+  const [taskEditTitleText, setTaskEditTitleText] = useState('');
 
   const onChangeTaskTitleText = (event) => setTaskTitleText(event.target.value);
   const onChangeTaskDetailText = (event) => setTaskDetailText(event.target.value);
@@ -70,6 +71,31 @@ export const App = () => {
         }
     }
     setTodos(newTodos);
+  };
+
+  const onChangeEditTaskTitleText = (event) => {
+    // const newTodos = [...todos];
+    setTaskEditTitleText(event.target.value)
+    // for (let i = 0; i < newTodos.length; i++) {
+    //   if(newTodos[i].id === editTodoId){
+    //       newTodos[i].editFlg = ON_EDIT_FLG_TRUE;
+    //   }
+    // }
+    // setTodos(newTodos);
+  };
+
+  const onClickUpdate = (updateTodoId) => {
+    if (taskEditTitleText === ""){
+      return
+    };
+    const newTodos = [...todos];
+    for (let i = 0; i < newTodos.length; i++) {
+      if(newTodos[i].id === updateTodoId){
+          newTodos[i].title = taskEditTitleText;
+      }
+    }
+    setTaskEditTitleText('');
+    setTodos(newTodos);    
   };
 
   const onClickBackEdit = (editBackTodoId) => {
@@ -168,6 +194,12 @@ export const App = () => {
         ON_EDIT_FLG_FALSE={ON_EDIT_FLG_FALSE}
         onClickEdit={onClickEdit}
         onClickBackEdit={onClickBackEdit}
+        onChangeTaskTitleText={onChangeTaskTitleText}
+        onChangeTaskDetailText={onChangeTaskDetailText}
+        onChangeEditTaskTitleText={onChangeEditTaskTitleText}
+        taskTitleText={taskTitleText}
+        setTaskTitleText={setTaskTitleText}
+        onClickUpdate={onClickUpdate}
       />
     </div>
   );
