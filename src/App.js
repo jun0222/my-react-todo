@@ -62,6 +62,7 @@ export const App = () => {
       }
     }
     setTodos(newTodos);
+    setTodosStrage(newTodos);
   };
 
   const onClickEdit = (editTodoId) => {
@@ -81,8 +82,8 @@ export const App = () => {
     setTaskEditDetailText(event.target.value)
   }
 
-  const onClickUpdateTaskTitle = (updateTodoId) => {
-    if (taskEditTitleText === ""){
+  const onClickUpdateTask = (updateTodoId) => {
+    if (taskEditTitleText === "" || taskEditDetailText === ""){
       return
     };
     const newTodos = [...todos];
@@ -90,25 +91,13 @@ export const App = () => {
       if(newTodos[i].id === updateTodoId){
           newTodos[i].title = taskEditTitleText;
           newTodos[i].detail = taskEditDetailText;
+          newTodos[i].editFlg = ON_EDIT_FLG_FALSE;
       }
     }
     setTaskEditTitleText('');
     setTaskEditDetailText('');
-    setTodos(newTodos);    
-  };
-
-  const onClickUpdateTask = (updateTodoId) => {
-    if (taskEditDetailText === ""){
-      return
-    };
-    const newTodos = [...todos];
-    for (let i = 0; i < newTodos.length; i++) {
-      if(newTodos[i].id === updateTodoId){
-          newTodos[i].detail = taskEditDetailText;
-      }
-    }
-    setTaskEditDetailText('');
-    setTodos(newTodos);    
+    setTodos(newTodos);
+    setTodosStrage(newTodos);
   };
 
   const onClickBackEdit = (editBackTodoId) => {
@@ -212,7 +201,6 @@ export const App = () => {
         onChangeEditTaskTitleText={onChangeEditTaskTitleText}
         taskTitleText={taskTitleText}
         setTaskTitleText={setTaskTitleText}
-        onClickUpdateTaskTitle={onClickUpdateTaskTitle}
         onClickUpdateTask={onClickUpdateTask}
         onChangeEditTaskDetailText={onChangeEditTaskDetailText}
       />
