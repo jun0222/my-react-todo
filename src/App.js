@@ -20,6 +20,7 @@ export const App = () => {
   const ON_EDIT_FLG_TRUE = 1;
   const ON_EDIT_FLG_FALSE = 0;
   const [taskEditTitleText, setTaskEditTitleText] = useState('');
+  const [taskEditDetailText, setTaskEditDetailText] = useState('');
 
   const onChangeTaskTitleText = (event) => setTaskTitleText(event.target.value);
   const onChangeTaskDetailText = (event) => setTaskDetailText(event.target.value);
@@ -74,17 +75,13 @@ export const App = () => {
   };
 
   const onChangeEditTaskTitleText = (event) => {
-    // const newTodos = [...todos];
     setTaskEditTitleText(event.target.value)
-    // for (let i = 0; i < newTodos.length; i++) {
-    //   if(newTodos[i].id === editTodoId){
-    //       newTodos[i].editFlg = ON_EDIT_FLG_TRUE;
-    //   }
-    // }
-    // setTodos(newTodos);
   };
+  const onChangeEditTaskDetailText = (event) => {
+    setTaskEditDetailText(event.target.value)
+  }
 
-  const onClickUpdate = (updateTodoId) => {
+  const onClickUpdateTaskTitle = (updateTodoId) => {
     if (taskEditTitleText === ""){
       return
     };
@@ -92,9 +89,25 @@ export const App = () => {
     for (let i = 0; i < newTodos.length; i++) {
       if(newTodos[i].id === updateTodoId){
           newTodos[i].title = taskEditTitleText;
+          newTodos[i].detail = taskEditDetailText;
       }
     }
     setTaskEditTitleText('');
+    setTaskEditDetailText('');
+    setTodos(newTodos);    
+  };
+
+  const onClickUpdateTask = (updateTodoId) => {
+    if (taskEditDetailText === ""){
+      return
+    };
+    const newTodos = [...todos];
+    for (let i = 0; i < newTodos.length; i++) {
+      if(newTodos[i].id === updateTodoId){
+          newTodos[i].detail = taskEditDetailText;
+      }
+    }
+    setTaskEditDetailText('');
     setTodos(newTodos);    
   };
 
@@ -199,7 +212,9 @@ export const App = () => {
         onChangeEditTaskTitleText={onChangeEditTaskTitleText}
         taskTitleText={taskTitleText}
         setTaskTitleText={setTaskTitleText}
-        onClickUpdate={onClickUpdate}
+        onClickUpdateTaskTitle={onClickUpdateTaskTitle}
+        onClickUpdateTask={onClickUpdateTask}
+        onChangeEditTaskDetailText={onChangeEditTaskDetailText}
       />
     </div>
   );

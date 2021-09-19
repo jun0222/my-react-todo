@@ -8,11 +8,9 @@ export const TaskArea = (props) => {
         ON_EDIT_FLG_TRUE, 
         onClickEdit,
         onClickBackEdit,
-        onChangeTaskDetailText,
         onChangeEditTaskTitleText,
-        taskTitleText,
-        setTaskTitleText,
-        onClickUpdate
+        onClickUpdateTaskTitle,
+        onChangeEditTaskDetailText
     } = props;
     return (
         <div>
@@ -41,10 +39,10 @@ export const TaskArea = (props) => {
                                     <option value="進行中">進行中</option>
                                     <option value="完了">完了</option>
                                 </select>
-                                <input type="text" value={todo.detail} placeholder="タスク詳細" onChange={onChangeTaskDetailText} />
+                                <input type="text" defaultValue={todo.detail} placeholder="タスク詳細" onChange={onChangeEditTaskDetailText} />
                                 <p className="task-date-style">期限：{todo.date}</p>
                                 <p className="task-created-at-style">作成日：{todo.createdAt}</p>
-                                <button type="button" className="task-delete-button-style" onClick={() => {onClickUpdate(todo.id)}} >確定</button>
+                                <button type="button" className="task-delete-button-style" onClick={() => {onClickUpdateTaskTitle(todo.id)}} >確定</button>
                                 <button type="button" className="task-delete-button-style" onClick={() => {onClickBackEdit(todo.id)}} >戻す</button>
                             </div>
                         </li>
