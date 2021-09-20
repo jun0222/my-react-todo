@@ -6,6 +6,9 @@ import { SortButton } from './components/SortButton';
 import { FilterButton } from './components/FilterButton';
 import { TaskArea } from './components/TaskArea';
 import "react-datepicker/dist/react-datepicker.css";
+import Modal from 'react-modal';
+
+Modal.setAppElement("#root");
 
 export const App = () => {
   // js処理
@@ -21,6 +24,7 @@ export const App = () => {
   const ON_EDIT_FLG_FALSE = 0;
   const [taskEditTitleText, setTaskEditTitleText] = useState('');
   const [taskEditDetailText, setTaskEditDetailText] = useState('');
+  const [modalIsOpen, setIsOpen] = React.useState(false);
 
   const onChangeTaskTitleText = (event) => setTaskTitleText(event.target.value);
   const onChangeTaskDetailText = (event) => setTaskDetailText(event.target.value);
@@ -83,14 +87,32 @@ export const App = () => {
   }
 
   const onClickUpdateTask = (updateTodoId) => {
-    if (taskEditTitleText === "" || taskEditDetailText === ""){
-      return
+    if (taskEditTitleText === ""){
+      var defaultTaskEditTitleText = document.getElementById(`task-${updateTodoId}-title`).value
     };
+    if (taskEditDetailText === ""){
+      var defaultTaskEditDetailText = document.getElementById(`task-${updateTodoId}-detail`).value
+    };
+    if (taskEditTitleText === "" && defaultTaskEditTitleText === ""){
+      return
+    }
+    if (taskEditDetailText === "" && defaultTaskEditDetailText === ""){
+      return
+    }
+
     const newTodos = [...todos];
     for (let i = 0; i < newTodos.length; i++) {
       if(newTodos[i].id === updateTodoId){
-          newTodos[i].title = taskEditTitleText;
-          newTodos[i].detail = taskEditDetailText;
+          if(taskEditTitleText){
+            newTodos[i].title = taskEditTitleText;
+          }else{
+            newTodos[i].title = defaultTaskEditTitleText;
+          }
+          if(taskEditDetailText){
+            newTodos[i].detail = taskEditDetailText;
+          }else{
+            newTodos[i].detail = defaultTaskEditDetailText;
+          }
           newTodos[i].editFlg = ON_EDIT_FLG_FALSE;
       }
     }
@@ -166,6 +188,12 @@ export const App = () => {
 
   return (
     <div className="App app-style">
+      <div className="App">
+        <button onClick={() => setIsOpen(true)}>Open Modal</button>
+        <Modal isOpen={modalIsOpen}>
+          <button onClick={() => setIsOpen(false)}>Close Modal</button>
+        </Modal>
+      </div>
       <AddForm
         taskTitleText={taskTitleText}
         onChangeTaskTitleText={onChangeTaskTitleText}
@@ -193,16 +221,11 @@ export const App = () => {
         onChangeExistingTaskStatus={onChangeExistingTaskStatus}
         onClickDelete={onClickDelete}
         ON_EDIT_FLG_TRUE={ON_EDIT_FLG_TRUE}
-        ON_EDIT_FLG_FALSE={ON_EDIT_FLG_FALSE}
         onClickEdit={onClickEdit}
         onClickBackEdit={onClickBackEdit}
-        onChangeTaskTitleText={onChangeTaskTitleText}
-        onChangeTaskDetailText={onChangeTaskDetailText}
         onChangeEditTaskTitleText={onChangeEditTaskTitleText}
-        taskTitleText={taskTitleText}
-        setTaskTitleText={setTaskTitleText}
-        onClickUpdateTask={onClickUpdateTask}
         onChangeEditTaskDetailText={onChangeEditTaskDetailText}
+        onClickUpdateTask={onClickUpdateTask}
       />
     </div>
   );

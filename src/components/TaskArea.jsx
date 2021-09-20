@@ -29,7 +29,7 @@ export const TaskArea = (props) => {
                         <li key={index} style={{listStyle: 'none'}}>
                             <div className={taskStyle}>
                                 <p className="task-id-style">{todo.id}</p>
-                                <input type="text" className="add-input-style" defaultValue={todo.title} placeholder="タイトル" maxLength='10' onChange={onChangeEditTaskTitleText} />
+                                <input id={`task-${todo.id}-title`} type="text" className="add-input-style" defaultValue={todo.title} placeholder="タイトル" maxLength='10' onChange={onChangeEditTaskTitleText} />
                                 <select 
                                     id={`task-${todo.id}-status`} 
                                     className="task-status-style"
@@ -39,7 +39,7 @@ export const TaskArea = (props) => {
                                     <option value="進行中">進行中</option>
                                     <option value="完了">完了</option>
                                 </select>
-                                <input type="text" className="add-input-detail-style" defaultValue={todo.detail} placeholder="タスク詳細"  maxLength='50' onChange={onChangeEditTaskDetailText} />
+                                <input id={`task-${todo.id}-detail`} type="text" className="add-input-detail-style" defaultValue={todo.detail} placeholder="タスク詳細"  maxLength='50' onChange={onChangeEditTaskDetailText} />
                                 <p className="task-date-style">期限：{todo.date}</p>
                                 <p className="task-created-at-style">作成日：{todo.createdAt}</p>
                                 <button type="button" className="task-delete-button-style" onClick={() => {onClickUpdateTask(todo.id)}} >確定</button>
@@ -52,7 +52,7 @@ export const TaskArea = (props) => {
                         <li key={index} style={{listStyle: 'none'}}>
                             <div className={taskStyle}>
                                 <p className="task-id-style">{todo.id}</p>
-                                <p className="task-title-style">{todo.title}</p>
+                                <p id={`task-${todo.id}-title`} className="task-title-style">{todo.title}</p>
                                 <select 
                                     id={`task-${todo.id}-status`} 
                                     className="task-status-style"
@@ -62,11 +62,12 @@ export const TaskArea = (props) => {
                                     <option value="進行中">進行中</option>
                                     <option value="完了">完了</option>
                                 </select>
-                                <p className="task-detail-style">{todo.detail}</p>
+                                <p id={`task-${todo.id}-detail`} className="task-detail-style">{todo.detail}</p>
                                 <p className="task-date-style">期限：{todo.date}</p>
                                 <p className="task-created-at-style">作成日：{todo.createdAt}</p>
                                 <button type="button" className="task-delete-button-style" onClick={() => {onClickDelete(todo.id)}} >削除</button>
                                 <button type="button" className="task-delete-button-style" onClick={() => {onClickEdit(todo.id)}} >編集</button>
+                                <button type="button" className="task-comment-button-style" onClick={() => {onClickEdit(todo.id)}} >コメント</button>
                             </div>
                         </li>
                     )
