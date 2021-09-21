@@ -6,9 +6,9 @@ import { SortButton } from './components/SortButton';
 import { FilterButton } from './components/FilterButton';
 import { TaskArea } from './components/TaskArea';
 import "react-datepicker/dist/react-datepicker.css";
-import Modal from 'react-modal';
+// import Modal from 'react-modal';
 
-Modal.setAppElement("#root");
+// Modal.setAppElement("#root");
 
 export const App = () => {
   // js処理
@@ -24,7 +24,7 @@ export const App = () => {
   const ON_EDIT_FLG_FALSE = 0;
   const [taskEditTitleText, setTaskEditTitleText] = useState('');
   const [taskEditDetailText, setTaskEditDetailText] = useState('');
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  // const [modalIsOpen, setIsOpen] = React.useState(false);
 
   const onChangeTaskTitleText = (event) => setTaskTitleText(event.target.value);
   const onChangeTaskDetailText = (event) => setTaskDetailText(event.target.value);
@@ -188,12 +188,15 @@ export const App = () => {
 
   return (
     <div className="App app-style">
-      <div className="App">
+      {/* <div className="App">
         <button onClick={() => setIsOpen(true)}>Open Modal</button>
         <Modal isOpen={modalIsOpen}>
           <button onClick={() => setIsOpen(false)}>Close Modal</button>
+          <h2>タイトル</h2>
+          <input type="text"/>
+          <button>ボタン</button>
         </Modal>
-      </div>
+      </div> */}
       <AddForm
         taskTitleText={taskTitleText}
         onChangeTaskTitleText={onChangeTaskTitleText}
