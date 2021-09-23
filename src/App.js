@@ -6,9 +6,6 @@ import { SortButton } from './components/SortButton';
 import { FilterButton } from './components/FilterButton';
 import { TaskArea } from './components/TaskArea';
 import "react-datepicker/dist/react-datepicker.css";
-// import Modal from 'react-modal';
-
-// Modal.setAppElement("#root");
 
 export const App = () => {
   // js処理
@@ -24,11 +21,15 @@ export const App = () => {
   const ON_EDIT_FLG_FALSE = 0;
   const [taskEditTitleText, setTaskEditTitleText] = useState('');
   const [taskEditDetailText, setTaskEditDetailText] = useState('');
-  // const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [commentId, setCommentId] = useState([]);
+  const [commentContentText, setCommentContentText] = useState('');
+  const [comments, setComments] = useState([]);
 
   const onChangeTaskTitleText = (event) => setTaskTitleText(event.target.value);
   const onChangeTaskDetailText = (event) => setTaskDetailText(event.target.value);
   const onChangeTaskStatus = (event) => setTaskStatus(event.target.value);
+  const onChangeCommentContentText = (event) => setCommentContentText(event.target.value);
   const handleChange = (event) => {
     setDate(event);
   }
@@ -186,17 +187,26 @@ export const App = () => {
     setTodos(completeArray);
   }
 
+  const onClickAddComment = () => {
+    if (commentContentText === ""){
+      return
+    };
+    const newCommentId = id + 1;
+    const createdAt = new Date()
+    const createdAtYyyymmdd = createdAt.getFullYear() + "/" +  (createdAt.getMonth() + 1) + "/"+ createdAt.getDate();
+    const commentObj = {
+      id: commentId,
+      content: commentContentText,
+      createdAt: createdAtYyyymmdd
+    }
+    const newComments = [...comments, commentObj];
+    setComments(newComments);
+    setCommentContentText('');
+    setCommentId(newCommentId);
+  }
+
   return (
     <div className="App app-style">
-      {/* <div className="App">
-        <button onClick={() => setIsOpen(true)}>Open Modal</button>
-        <Modal isOpen={modalIsOpen}>
-          <button onClick={() => setIsOpen(false)}>Close Modal</button>
-          <h2>タイトル</h2>
-          <input type="text"/>
-          <button>ボタン</button>
-        </Modal>
-      </div> */}
       <AddForm
         taskTitleText={taskTitleText}
         onChangeTaskTitleText={onChangeTaskTitleText}
@@ -229,6 +239,12 @@ export const App = () => {
         onChangeEditTaskTitleText={onChangeEditTaskTitleText}
         onChangeEditTaskDetailText={onChangeEditTaskDetailText}
         onClickUpdateTask={onClickUpdateTask}
+        modalIsOpen={modalIsOpen}
+        setIsOpen={setIsOpen}
+        comments={comments}
+        onClickAddComment={onClickAddComment}
+        commentContentText={commentContentText}
+        onChangeCommentContentText={onChangeCommentContentText}
       />
     </div>
   );

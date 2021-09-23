@@ -1,4 +1,6 @@
 import React from 'react';
+import Modal from 'react-modal';
+Modal.setAppElement("#root");
 
 export const TaskArea = (props) => {
     const {
@@ -10,7 +12,13 @@ export const TaskArea = (props) => {
         onClickBackEdit,
         onChangeEditTaskTitleText,
         onChangeEditTaskDetailText,
-        onClickUpdateTask
+        onClickUpdateTask,
+        modalIsOpen,
+        setIsOpen,
+        comments,
+        onClickAddComment,
+        commentContentText,
+        onChangeCommentContentText
     } = props;
     return (
         <div>
@@ -67,7 +75,22 @@ export const TaskArea = (props) => {
                                 <p className="task-created-at-style">作成日：{todo.createdAt}</p>
                                 <button type="button" className="task-delete-button-style" onClick={() => {onClickDelete(todo.id)}} >削除</button>
                                 <button type="button" className="task-delete-button-style" onClick={() => {onClickEdit(todo.id)}} >編集</button>
-                                <button type="button" className="task-comment-button-style" onClick={() => {onClickEdit(todo.id)}} >コメント</button>
+                                <div>
+                                    <button className="task-delete-button-style" onClick={() => setIsOpen(true)}>コメント</button>
+                                    <Modal isOpen={modalIsOpen}>
+                                    <button onClick={() => setIsOpen(false)}>閉じる</button>
+                                    <input type="text" value={commentContentText} onChange={onChangeCommentContentText} />
+                                    <button type="button" onClick={onClickAddComment}>コメントする</button>
+                                    <h2>コメント一蘭</h2>
+                                    {comments.map((comment, index)=>{
+                                        return (
+                                            <div>
+                                                <p>{comment.content}</p>
+                                            </div>
+                                        )
+                                    })}
+                                    </Modal>
+                                </div>
                             </div>
                         </li>
                     )
