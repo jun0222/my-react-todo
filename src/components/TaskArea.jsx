@@ -18,7 +18,9 @@ export const TaskArea = (props) => {
         comments,
         onClickAddComment,
         commentContentText,
-        onChangeCommentContentText
+        onChangeCommentContentText,
+        onClickOpenComment,
+        activeCommentParent
     } = props;
     return (
         <div>
@@ -76,19 +78,22 @@ export const TaskArea = (props) => {
                                 <button type="button" className="task-delete-button-style" onClick={() => {onClickDelete(todo.id)}} >削除</button>
                                 <button type="button" className="task-delete-button-style" onClick={() => {onClickEdit(todo.id)}} >編集</button>
                                 <div>
-                                    <button className="task-delete-button-style" onClick={() => setIsOpen(true)}>コメント</button>
+                                    <button id={todo.id} className="task-delete-button-style" onClick={onClickOpenComment}>コメント</button>
                                     <Modal isOpen={modalIsOpen}>
                                     <button onClick={() => setIsOpen(false)}>閉じる</button>
-                                    <input type="text" value={commentContentText} onChange={onChangeCommentContentText} />
-                                    <button type="button" onClick={onClickAddComment}>コメントする</button>
-                                    <h2>コメント一蘭</h2>
+                                    <div>
+                                        <input type="text" value={commentContentText} onChange={onChangeCommentContentText} />
+                                        <button type="button" onClick={() => {onClickAddComment(activeCommentParent)}}>コメントする</button>
+                                    </div>
+                                    <h2>コメント一覧</h2>
                                     {comments.map((comment, index)=>{
                                         return (
                                             <div>
-                                                <p>{comment.content}</p>
+                                                {activeCommentParent === comment.parentId && <><p>{comment.content}</p><hr /></>}
                                             </div>
                                         )
-                                    })}
+                                    })
+                                    }
                                     </Modal>
                                 </div>
                             </div>

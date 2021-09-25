@@ -22,9 +22,10 @@ export const App = () => {
   const [taskEditTitleText, setTaskEditTitleText] = useState('');
   const [taskEditDetailText, setTaskEditDetailText] = useState('');
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [commentId, setCommentId] = useState([]);
+  const [commentId, setCommentId] = useState(1);
   const [commentContentText, setCommentContentText] = useState('');
   const [comments, setComments] = useState([]);
+  const [activeCommentParent, setActiveCommentParent] = useState();
 
   const onChangeTaskTitleText = (event) => setTaskTitleText(event.target.value);
   const onChangeTaskDetailText = (event) => setTaskDetailText(event.target.value);
@@ -187,7 +188,7 @@ export const App = () => {
     setTodos(completeArray);
   }
 
-  const onClickAddComment = () => {
+  const onClickAddComment = (parentId) => {
     if (commentContentText === ""){
       return
     };
@@ -196,6 +197,7 @@ export const App = () => {
     const createdAtYyyymmdd = createdAt.getFullYear() + "/" +  (createdAt.getMonth() + 1) + "/"+ createdAt.getDate();
     const commentObj = {
       id: commentId,
+      parentId: parentId,
       content: commentContentText,
       createdAt: createdAtYyyymmdd
     }
@@ -203,6 +205,11 @@ export const App = () => {
     setComments(newComments);
     setCommentContentText('');
     setCommentId(newCommentId);
+  }
+
+  const onClickOpenComment = (event) => {
+    setIsOpen(true);
+    setActiveCommentParent(event.target.id);
   }
 
   return (
@@ -245,6 +252,8 @@ export const App = () => {
         onClickAddComment={onClickAddComment}
         commentContentText={commentContentText}
         onChangeCommentContentText={onChangeCommentContentText}
+        onClickOpenComment={onClickOpenComment}
+        activeCommentParent={activeCommentParent}
       />
     </div>
   );
