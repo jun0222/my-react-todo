@@ -14,7 +14,7 @@ export const App = () => {
   const [taskDetailText, setTaskDetailText] = useState('');
   const [taskStatus, setTaskStatus] = useState('');
   const [todos, setTodos] = useState([]);
-  const [todosStorage, setTodosStrage] = useState([]);
+  const [dbMock, setDbMock] = useState([]);
   const initialDate = new Date()
   const [date, setDate] = useState(initialDate);
   const ON_EDIT_FLG_TRUE = 1;
@@ -52,9 +52,9 @@ export const App = () => {
       editFlg: ON_EDIT_FLG_FALSE
     }
     setId(newId);
-    const newTask = [...todosStorage, taskObj];
+    const newTask = [...dbMock, taskObj];
     setTodos(newTask);
-    setTodosStrage(newTask);
+    setDbMock(newTask);
     setTaskTitleText('');
     setTaskDetailText('');
     setTaskStatus('');
@@ -68,7 +68,7 @@ export const App = () => {
       }
     }
     setTodos(newTodos);
-    setTodosStrage(newTodos);
+    setDbMock(newTodos);
   };
 
   const onClickEdit = (editTodoId) => {
@@ -121,7 +121,7 @@ export const App = () => {
     setTaskEditTitleText('');
     setTaskEditDetailText('');
     setTodos(newTodos);
-    setTodosStrage(newTodos);
+    setDbMock(newTodos);
   };
 
   const onClickBackEdit = (editBackTodoId) => {
@@ -166,24 +166,24 @@ export const App = () => {
   }
 
   const filterDisable = () => {
-    const newTodos = [...todosStorage];
+    const newTodos = [...dbMock];
     setTodos(newTodos);
   }
 
   const filterProgress = () => {
-    const newTodos = [...todosStorage];
+    const newTodos = [...dbMock];
     const progressArray = newTodos.filter(item => item.status === '進行中');
     setTodos(progressArray);
   }
 
   const filterNotYet = () => {
-    const newTodos = [...todosStorage];
+    const newTodos = [...dbMock];
     const notYetArray = newTodos.filter(item => item.status === '未着手');
     setTodos(notYetArray);
   }
 
   const filterComplete = () => {
-    const newTodos = [...todosStorage];
+    const newTodos = [...dbMock];
     const completeArray = newTodos.filter(item => item.status === '完了');
     setTodos(completeArray);
   }
