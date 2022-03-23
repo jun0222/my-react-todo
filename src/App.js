@@ -8,7 +8,7 @@ import { TaskArea } from './components/TaskArea';
 import "react-datepicker/dist/react-datepicker.css";
 
 export const App = () => {
-  // js処理
+  // state宣言関連
   const [id, setId] = useState(1);
   const [taskTitleText, setTaskTitleText] = useState('');
   const [taskDetailText, setTaskDetailText] = useState('');
@@ -27,6 +27,7 @@ export const App = () => {
   const [comments, setComments] = useState([]);
   const [activeCommentParent, setActiveCommentParent] = useState();
 
+  // onChange関連
   const onChangeTaskTitleText = (event) => setTaskTitleText(event.target.value);
   const onChangeTaskDetailText = (event) => setTaskDetailText(event.target.value);
   const onChangeTaskStatus = (event) => setTaskStatus(event.target.value);
@@ -34,6 +35,14 @@ export const App = () => {
   const handleChange = (event) => {
     setDate(event);
   }
+  const onChangeEditTaskTitleText = (event) => {
+    setTaskEditTitleText(event.target.value)
+  };
+  const onChangeEditTaskDetailText = (event) => {
+    setTaskEditDetailText(event.target.value)
+  }
+
+  // onClick関連
   const onClickAdd = () => {
     if (taskTitleText === "" || taskStatus === "" || taskDetailText === "" || date === null ){
       return
@@ -80,13 +89,6 @@ export const App = () => {
     }
     setTodos(newTodos);
   };
-
-  const onChangeEditTaskTitleText = (event) => {
-    setTaskEditTitleText(event.target.value)
-  };
-  const onChangeEditTaskDetailText = (event) => {
-    setTaskEditDetailText(event.target.value)
-  }
 
   const onClickUpdateTask = (updateTodoId) => {
     if (taskEditTitleText === ""){
