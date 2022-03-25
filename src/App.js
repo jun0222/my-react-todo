@@ -10,14 +10,8 @@ import "react-datepicker/dist/react-datepicker.css";
 export const App = () => {
   // state宣言関連
   const [id, setId] = useState(1);
-  const [taskTitleText, setTaskTitleText] = useState("");
-  const [taskDetailText, setTaskDetailText] = useState("");
-  const [taskStatus, setTaskStatus] = useState("");
   const [todos, setTodos] = useState([]);
   const [dbMock, setDbMock] = useState([]);
-  const initialDate = new Date();
-
-  const [date, setDate] = useState(initialDate);
   const ON_EDIT_FLG_TRUE = 1;
   const ON_EDIT_FLG_FALSE = 0;
   const [taskEditTitleText, setTaskEditTitleText] = useState("");
@@ -29,15 +23,9 @@ export const App = () => {
   const [activeCommentParent, setActiveCommentParent] = useState();
 
   // onChange関連
-  const onChangeTaskTitleText = (event) => setTaskTitleText(event.target.value);
-  const onChangeTaskDetailText = (event) =>
-    setTaskDetailText(event.target.value);
-  const onChangeTaskStatus = (event) => setTaskStatus(event.target.value);
   const onChangeCommentContentText = (event) =>
     setCommentContentText(event.target.value);
-  const handleChange = (event) => {
-    setDate(event);
-  };
+
   const onChangeEditTaskTitleText = (event) => {
     setTaskEditTitleText(event.target.value);
   };
@@ -55,42 +43,6 @@ export const App = () => {
   };
 
   // onClick関連
-  const onClickAdd = () => {
-    if (
-      taskTitleText === "" ||
-      taskStatus === "" ||
-      taskDetailText === "" ||
-      date === null
-    ) {
-      return;
-    }
-    const newId = id + 1;
-    const yyyymmdd =
-      date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
-    const createdAt = new Date();
-    const createdAtYyyymmdd =
-      createdAt.getFullYear() +
-      "/" +
-      (createdAt.getMonth() + 1) +
-      "/" +
-      createdAt.getDate();
-    const taskObj = {
-      id: id,
-      title: taskTitleText,
-      status: taskStatus,
-      detail: taskDetailText,
-      date: yyyymmdd,
-      createdAt: createdAtYyyymmdd,
-      editFlg: ON_EDIT_FLG_FALSE,
-    };
-    setId(newId);
-    const newTask = [...dbMock, taskObj];
-    setTodos(newTask);
-    setDbMock(newTask);
-    setTaskTitleText("");
-    setTaskDetailText("");
-    setTaskStatus("");
-  };
 
   const onClickDelete = (deleteTodoId) => {
     const newTodos = [...todos];
@@ -195,15 +147,12 @@ export const App = () => {
   return (
     <div className="App app-style">
       <AddForm
-        taskTitleText={taskTitleText}
-        onChangeTaskTitleText={onChangeTaskTitleText}
-        taskStatus={taskStatus}
-        onChangeTaskStatus={onChangeTaskStatus}
-        taskDetailText={taskDetailText}
-        onChangeTaskDetailText={onChangeTaskDetailText}
-        onClickAdd={onClickAdd}
-        date={date}
-        handleChange={handleChange}
+        id={id}
+        setId={setId}
+        setTodos={setTodos}
+        dbMock={dbMock}
+        setDbMock={setDbMock}
+        ON_EDIT_FLG_FALSE={ON_EDIT_FLG_FALSE}
       />
       <SortButton todos={todos} setTodos={setTodos} />
       <FilterButton setTodos={setTodos} dbMock={dbMock} />

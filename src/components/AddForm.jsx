@@ -1,20 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import "../../src/App.css";
 
 export const AddForm = (props) => {
-  const {
-    taskTitleText,
-    onChangeTaskTitleText,
-    taskStatus,
-    onChangeTaskStatus,
-    taskDetailText,
-    onChangeTaskDetailText,
-    onClickAdd,
-    date,
-    handleChange,
-  } = props;
+  // state宣言
+  const [taskStatus, setTaskStatus] = useState("");
+  const [taskTitleText, setTaskTitleText] = useState("");
+  const [taskDetailText, setTaskDetailText] = useState("");
+  const initialDate = new Date();
+  const [date, setDate] = useState(initialDate);
+
+  // onChange関連
+  const onChangeTaskTitleText = (event) => setTaskTitleText(event.target.value);
+  const onChangeTaskDetailText = (event) =>
+    setTaskDetailText(event.target.value);
+  const handleChange = (event) => {
+    setDate(event);
+  };
+  const onChangeTaskStatus = (event) => setTaskStatus(event.target.value);
+
+  // onClick関連
+  const onClickAdd = () => {
+    if (
+      taskTitleText === "" ||
+      taskStatus === "" ||
+      taskDetailText === "" ||
+      date === null
+    ) {
+      return;
+    }
+    const newId = id + 1;
+    const yyyymmdd =
+      date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
+    const createdAt = new Date();
+    const createdAtYyyymmdd =
+      createdAt.getFullYear() +
+      "/" +
+      (createdAt.getMonth() + 1) +
+      "/" +
+      createdAt.getDate();
+    const taskObj = {
+      id: id,
+      title: taskTitleText,
+      status: taskStatus,
+      detail: taskDetailText,
+      date: yyyymmdd,
+      createdAt: createdAtYyyymmdd,
+      editFlg: ON_EDIT_FLG_FALSE,
+    };
+    setId(newId);
+    const newTask = [...dbMock, taskObj];
+    setTodos(newTask);
+    setDbMock(newTask);
+    setTaskTitleText("");
+    setTaskDetailText("");
+    setTaskStatus("");
+  };
+  const { id, setId, setTodos, dbMock, setDbMock, ON_EDIT_FLG_FALSE } = props;
   return (
     <div className="add-style">
       <form action="">
