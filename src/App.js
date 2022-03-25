@@ -44,6 +44,15 @@ export const App = () => {
   const onChangeEditTaskDetailText = (event) => {
     setTaskEditDetailText(event.target.value);
   };
+  const onChangeExistingTaskStatus = (statusChangeTodoId, setValue) => {
+    const newTodos = [...todos];
+    for (let i = 0; i < newTodos.length; i++) {
+      if (newTodos[i].id === statusChangeTodoId) {
+        newTodos[i].status = setValue;
+      }
+    }
+    setTodos(newTodos);
+  };
 
   // onClick関連
   const onClickAdd = () => {
@@ -154,60 +163,6 @@ export const App = () => {
     setTodos(newTodos);
   };
 
-  const onChangeExistingTaskStatus = (statusChangeTodoId, setValue) => {
-    const newTodos = [...todos];
-    for (let i = 0; i < newTodos.length; i++) {
-      if (newTodos[i].id === statusChangeTodoId) {
-        newTodos[i].status = setValue;
-      }
-    }
-    setTodos(newTodos);
-  };
-
-  const sortByIdAscending = () => {
-    let newTodos = [...todos];
-    newTodos = newTodos.sort((a, b) => a.id - b.id);
-    setTodos(newTodos);
-  };
-
-  const sortByIdDescending = () => {
-    let newTodos = [...todos];
-    newTodos = newTodos.sort((a, b) => b.id - a.id);
-    setTodos(newTodos);
-  };
-
-  const sortByStatusAscending = () => {
-    let newTodos = [...todos];
-    const completeArray = newTodos.filter((item) => item.status === "完了");
-    const progressArray = newTodos.filter((item) => item.status === "進行中");
-    const notYetArray = newTodos.filter((item) => item.status === "未着手");
-    newTodos = progressArray.concat(notYetArray, completeArray);
-    setTodos(newTodos);
-  };
-
-  const filterDisable = () => {
-    const newTodos = [...dbMock];
-    setTodos(newTodos);
-  };
-
-  const filterProgress = () => {
-    const newTodos = [...dbMock];
-    const progressArray = newTodos.filter((item) => item.status === "進行中");
-    setTodos(progressArray);
-  };
-
-  const filterNotYet = () => {
-    const newTodos = [...dbMock];
-    const notYetArray = newTodos.filter((item) => item.status === "未着手");
-    setTodos(notYetArray);
-  };
-
-  const filterComplete = () => {
-    const newTodos = [...dbMock];
-    const completeArray = newTodos.filter((item) => item.status === "完了");
-    setTodos(completeArray);
-  };
-
   const onClickAddComment = (parentId) => {
     if (commentContentText === "") {
       return;
@@ -235,6 +190,53 @@ export const App = () => {
   const onClickOpenComment = (event) => {
     setIsOpen(true);
     setActiveCommentParent(event.target.id);
+  };
+
+
+  // sort関連
+  const sortByIdAscending = () => {
+    let newTodos = [...todos];
+    newTodos = newTodos.sort((a, b) => a.id - b.id);
+    setTodos(newTodos);
+  };
+
+  const sortByIdDescending = () => {
+    let newTodos = [...todos];
+    newTodos = newTodos.sort((a, b) => b.id - a.id);
+    setTodos(newTodos);
+  };
+
+  const sortByStatusAscending = () => {
+    let newTodos = [...todos];
+    const completeArray = newTodos.filter((item) => item.status === "完了");
+    const progressArray = newTodos.filter((item) => item.status === "進行中");
+    const notYetArray = newTodos.filter((item) => item.status === "未着手");
+    newTodos = progressArray.concat(notYetArray, completeArray);
+    setTodos(newTodos);
+  };
+
+  // filter関連
+  const filterDisable = () => {
+    const newTodos = [...dbMock];
+    setTodos(newTodos);
+  };
+
+  const filterProgress = () => {
+    const newTodos = [...dbMock];
+    const progressArray = newTodos.filter((item) => item.status === "進行中");
+    setTodos(progressArray);
+  };
+
+  const filterNotYet = () => {
+    const newTodos = [...dbMock];
+    const notYetArray = newTodos.filter((item) => item.status === "未着手");
+    setTodos(notYetArray);
+  };
+
+  const filterComplete = () => {
+    const newTodos = [...dbMock];
+    const completeArray = newTodos.filter((item) => item.status === "完了");
+    setTodos(completeArray);
   };
 
   return (
