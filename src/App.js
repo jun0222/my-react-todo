@@ -192,30 +192,6 @@ export const App = () => {
     setActiveCommentParent(event.target.id);
   };
 
-  // filter関連
-  const filterDisable = () => {
-    const newTodos = [...dbMock];
-    setTodos(newTodos);
-  };
-
-  const filterProgress = () => {
-    const newTodos = [...dbMock];
-    const progressArray = newTodos.filter((item) => item.status === "進行中");
-    setTodos(progressArray);
-  };
-
-  const filterNotYet = () => {
-    const newTodos = [...dbMock];
-    const notYetArray = newTodos.filter((item) => item.status === "未着手");
-    setTodos(notYetArray);
-  };
-
-  const filterComplete = () => {
-    const newTodos = [...dbMock];
-    const completeArray = newTodos.filter((item) => item.status === "完了");
-    setTodos(completeArray);
-  };
-
   return (
     <div className="App app-style">
       <AddForm
@@ -230,12 +206,7 @@ export const App = () => {
         handleChange={handleChange}
       />
       <SortButton todos={todos} setTodos={setTodos} />
-      <FilterButton
-        filterDisable={filterDisable}
-        filterProgress={filterProgress}
-        filterNotYet={filterNotYet}
-        filterComplete={filterComplete}
-      />
+      <FilterButton setTodos={setTodos} dbMock={dbMock} />
       <TaskArea
         todos={todos}
         onChangeExistingTaskStatus={onChangeExistingTaskStatus}
