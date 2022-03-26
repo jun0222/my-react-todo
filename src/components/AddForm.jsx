@@ -57,7 +57,11 @@ export const AddForm = (props) => {
     setTaskDetailText("");
     setTaskStatus("");
   };
+
+  // props
   const { id, setId, setTodos, dbMock, setDbMock, ON_EDIT_FLG_FALSE } = props;
+
+  // jsx
   return (
     <div className="add-style">
       <form action="">
