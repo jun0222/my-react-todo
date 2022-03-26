@@ -43,7 +43,6 @@ export const App = () => {
   };
 
   // onClick関連
-
   const onClickDelete = (deleteTodoId) => {
     const newTodos = [...todos];
     for (let i = 0; i < newTodos.length; i++) {
