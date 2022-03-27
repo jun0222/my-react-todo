@@ -1,7 +1,6 @@
 import React from "react";
 
 export const FilterButton = (props) => {
-
   // props
   const { setTodos, dbMock } = props;
 
