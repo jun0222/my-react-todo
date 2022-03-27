@@ -1,7 +1,11 @@
 import React from "react";
 
 export const FilterButton = (props) => {
+
+  // props
   const { setTodos, dbMock } = props;
+
+  // filter関連
   const filterDisable = () => {
     const newTodos = [...dbMock];
     setTodos(newTodos);
@@ -25,6 +29,7 @@ export const FilterButton = (props) => {
     setTodos(completeArray);
   };
 
+  // jsx
   return (
     <div className="filter-buton-area-style">
       <button className="filter-button-style" onClick={filterDisable}>
